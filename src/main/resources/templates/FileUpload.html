@@ -1,0 +1,132 @@
+<html xmlns:th="https://www.thymeleaf.org/" 
+            xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<!--Nav-->
+	<div th:replace="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card-body">
+			<h1 class="text-center text-dark">File Upload</h1>
+			<form th:action="@{/document/upload}" method="POST" enctype="multipart/form-data" id="docForm">
+				<!--row#1-->
+				<div class="row">
+					<div class="col-1">
+						<label>ID</label>
+					</div>
+					<div class="col-4">
+						<input type="text" name="docId" id="docId" class="form-control" th:value="${idVal}" readonly />
+					</div>
+					<div class="col-7">
+						<span id="docIdError"></span>
+					</div>
+				</div>
+				<!-- row#2 -->
+				<div class="row">
+					<div class="col-1">
+						<label for="docOb">File:</label><br>
+					</div>
+					<div class="col-4">
+						<input type="file" name="docOb" id="docOb" class="form-control" required>
+					</div>
+					<div class="col-7">
+						<span id="docObError"></span>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-info btn-md btn-upld">Upload
+					<i class="fa fa-cloud-upload" aria-hidden="true"></i></button>
+			</form>
+		</div>
+	</div>
+
+	<div class="card-body">
+		<table class="table table-dark table-striped">
+			<thead>
+				<tr>
+					<th>FILE NAME</th>
+					<th>OPERATION</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="ob:${list}">
+					<td th:text="${ob[1]}"></td>
+					<td>
+						<a th:href="@{/document/delete(id=${ob[0]})}" class="btn btn-danger"><i class="fa fa-trash"
+								aria-hidden="true"></i>DELETE</a>|
+						<a th:href="@{/document/download(id=${ob[0]})}" class="btn btn-warning">DOWNLOAD
+							<i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<script>
+		$(document).ready(function () {
+			$("#docObError").hide();
+			var docObError = false;
+
+			function validate_docObReuired() {
+				var val = $("#docOb").val();
+				if (val == "") {
+					$("#docObError").show();
+					$("#docObError").html("Please select one file");
+					$("#docObError").css('color', 'red');
+					docObError = false;
+				}
+				return docObError;
+			}//validate_docObReuired()
+
+			function validate_docOb(ob) {
+				//full file object
+				console.log(ob);
+				//file name
+				var fname = ob.name;
+				//console.log(fname);
+
+				var fsize = ob.size; //bytes 1024 B =  1KB
+				//console.log(fsize);
+				//file extension
+				var fext = fname.substring(fname.lastIndexOf(".") + 1);
+				//console.log(fext);
+				var allowedExt = ["png", "jpg", "jpeg", "doc", "docx", "zip"];
+
+				if ($.inArray(fext, allowedExt) == -1) { //not exist
+					$("#docObError").show();
+					$("#docObError").html("Allowed Files " + allowedExt);
+					$("#docObError").css('color', 'red');
+					docObError = false;
+				} else if (fsize <= 1024 * 100) { //min 100KB
+					$("#docObError").show();
+					$("#docObError").html("File size is less than 100KB");
+					$("#docObError").css('color', 'red');
+					docObError = false;
+				} else if (fsize > 1024 * 400) { //max 400KB
+					$("#docObError").show();
+					$("#docObError").html("File size max is 400KB");
+					$("#docObError").css('color', 'red');
+					docObError = false;
+				} else {
+					$("#docObError").hide();
+					docObError = true;
+				}
+				return docObError;
+			}//validate_docOb()
+
+			$("input [type='file'] [name='docOb']").change(function () {
+				validate_docOb(this.file[0]);
+			});
+
+			$("#docForm").submit(function () {
+				validate_docObRequired();
+				if (docObError) return true;
+				else return false;
+			});
+
+		});
+	</script>
+	<!--Footer-->
+	<div th:replace="fragments/commonui :: footer"></div>
+</body>
+
+</html>

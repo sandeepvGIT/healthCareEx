@@ -1,0 +1,86 @@
+<html xmlns:th="https://www.thymeleaf.org/"
+            xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+   <div th:replace="fragments/commonui :: header"></div>
+  <body>
+   <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h2>Update Specialization</h2>
+        </div>
+
+        <div class="card-body">
+          <form
+            th:action="@{/spec/update}"
+            method="post"
+            th:object="${specialization}"
+          >
+            <!--row#1-->
+            <div class="row">
+              <div class="col-2"><label for="specId">Id</label></div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  th:field="*{id}"
+                  id="specId"
+                  readonly
+                  class="form-control"
+                />
+              </div>
+              <div class="col-4"></div>
+            </div>
+            <!--row#2-->
+            <div class="row">
+              <div class="col-2"><label for="specCode">Code</label></div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  th:field="*{specCode}"
+                  id="specCode"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-4"><span id="specCodeError"></span></div>
+            </div>
+            <!--row#3-->
+            <div class="row">
+              <div class="col-2"><label for="specName">Name</label></div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  th:field="*{specName}"
+                  id="specName"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-4"><span id="specNameError"></span></div>
+            </div>
+            <!--row#4-->
+            <div class="row">
+              <div class="col-2"><label for="specNote">Note</label></div>
+              <div class="col-6">
+                <textarea
+                  th:field="*{specNote}"
+                  id="specNote"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-4"><span id="specNoteError"></span></div>
+            </div>
+            <button type="submit" class="btn btn-success btn-spec">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>Update
+            </button>
+            <button type="reset" class="btn btn-danger btn-spec">
+              <i class="fa fa-ban" aria-hidden="true"></i>Cancel
+            </button>
+          </form>
+        </div>
+        <div th:if="${message!=null}" class="card-footer">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+    <script th:src="@{/specJs/spec_validator.js}"></script>
+  </body>
+</html>

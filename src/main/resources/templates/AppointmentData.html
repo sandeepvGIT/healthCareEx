@@ -1,0 +1,60 @@
+<html xmlns:th="https://www.thymeleaf.org/" 
+             xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+
+ <div th:replace="fragments/commonui :: header"></div>
+  <body>
+  <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h2>Appointment Data</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Doctor Name</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Slots</th>
+                <th>Details</th>
+                <th>Consulting Fee</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <tbody>
+                  <tr th:each="ob:${appList}">
+                    <td th:text="${ob.id}"></td>
+                    <td>[[${ob.doctor.firstName+'  '+ob.doctor.lastName}]]</td>
+                    <td th:text="${ob.date}"></td>
+                    <td th:text="${ob.noOfSlots}"></td>
+                    <td th:text="${ob.detail}"></td>
+                    <td th:text="${ob.amt}"></td>
+                    <td>
+                      <a
+                        th:href="@{/appointment/delete(id=${ob.id})}"
+                        class="btn btn-danger"
+                        ><i class="fa fa-trash" aria-hidden="true"></i>DELETE</a
+                      >|
+                      <a
+                        th:href="@{/appointment/edit(id=${ob.id})}"
+                        class="btn btn-warning"
+                        ><i class="fa fa-pencil" aria-hidden="true"></i>EDIT</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div th:if="${message!=null}" class="card-footer bg-info">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

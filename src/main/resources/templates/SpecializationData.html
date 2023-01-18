@@ -1,0 +1,51 @@
+<html xmlns:th="https://www.thymeleaf.org/"
+            xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<div th:replace="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card">
+			<div class="card-header  text-center text-dark">
+				<h2>Specialization Data</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>CODE</th>
+							<th>NAME</th>
+							<th>NOTE</th>
+							<th>OPERATIONS</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="ob:${specList}">
+							<td th:text="${ob.id}"></td>
+							<td th:text="${ob.specCode}"></td>
+							<td th:text="${ob.specName}"></td>
+							<td th:text="${ob.specNote}"></td>
+							<td>
+								<a th:href="@{/spec/delete(id=${ob.id})}" class="btn btn-danger"><i class="fa fa-trash"
+										aria-hidden="true"></i>DELETE</a>|
+								<a th:href="@{/spec/edit(id=${ob.id})}" class="btn btn-warning"><i class="fa fa-pencil"
+										aria-hidden="true"></i>EDIT</a>
+							</td>
+						</tr>
+					</tbody>
+					
+				</table>
+			</div>
+			<div th:if="${message!=null}" class="card-footer bg-white text-info">
+				<span th:text="${message}"></span>
+			</div>
+		</div>
+	</div>
+	<!--Footer-->
+     <div th:replace="fragments/commonui :: footer"></div>
+</body>
+
+</html>

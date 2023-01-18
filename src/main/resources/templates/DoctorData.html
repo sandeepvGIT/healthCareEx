@@ -1,0 +1,65 @@
+<htm xmlns:th="https://www.thymeleaf.org/"
+           xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+   <div th:replace="fragments/commonui :: header"></div>
+  <body>
+   <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header bg-primary text-center text-white">
+          <h2>Doctor Data</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+                <th>      </th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Specialization</th>
+                <th>Address</th>
+                <th>Modile</th>
+                <th>Gender</th>
+                <th>Note</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <tbody>
+                  <tr th:each="ob:${docList}">
+                    <td>
+                      <img th:src="${ob.photoLoc}" width="50" height="50" />
+                    </td>
+                    <td>[[${ob.firstName+' '+ob.lastName}]]</td>
+                    <td th:text="${ob.email}"></td>
+                    <td th:text="${ob.specialization.specName}"></td>
+                    <td th:text="${ob.address}"></td>
+                    <td th:text="${ob.mobile}"></td>
+                    <td th:text="${ob.gender}"></td>
+                    <td th:text="${ob.note}"></td>
+                    <td>
+                      <a
+                        th:href="@{/doctor/delete(id=${ob.id})}"
+                        class="btn btn-danger"
+                        ><i class="fa fa-trash" aria-hidden="true"></i>DELETE</a
+                      >|
+                      <a
+                       th:href="@{/doctor/edit(id=${ob.id})}"
+                        class="btn btn-warning"
+                        ><i class="fa fa-pencil" aria-hidden="true"></i>EDIT</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div th:if="${message!=null}" class="card-footer bg-info">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+  </body>
+</htm>

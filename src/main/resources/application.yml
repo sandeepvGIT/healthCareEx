@@ -1,0 +1,35 @@
+server:
+  port: 9696
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: sandeepv
+    url: jdbc:mysql:///health
+    username: root
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+
+  mail:
+    host: smtp.gmail.com
+    password: polhghesvfmnojzb
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: false
+          connectiontimeout: 5000
+          starttls:
+            enable: true
+            required: true
+          timeout: 5000
+          writetimeout: 5000
+    username: sandeepv684@gmail.com
+
+    
+master: 
+   user:
+      name: scott
+      email: sandeepv7686@gmail.com   

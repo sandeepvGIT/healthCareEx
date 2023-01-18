@@ -1,0 +1,50 @@
+<html xmlns:th ="https://www.thymeleaf.org/"
+            xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+  <div th:replace="fragments/commonui :: header"></div>
+  <body>
+   <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header  text-center text-dark">
+          <h2>Appointment Slots</h2>
+        </div>
+        <div class="card-body">
+          <table class="table table-dark table-striped">
+            <thead>
+              <tr>
+              <th>Id</th>
+                <th>Date</th>
+                <th>noOfSlots</th>
+                <th>Amount</th>
+                <th>Operation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <tbody>
+                  <tr th:each="ob,i:${list}">
+                  <td th:text="${i.count}"></td>
+                    <td th:text="${ob[0]}"></td>
+                    <td th:text="${ob[1]}"></td>
+                    <td th:text="${ob[2]}"></td>
+                    <td>
+                      <a
+                        th:href="@{slot/book(appid=${ob[3]})}"
+                        class="btn btn-info"
+                        >Request For Book</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          <div class="card-footer">
+             <span> [[${message}]]</span>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

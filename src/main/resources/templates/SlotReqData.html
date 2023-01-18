@@ -1,0 +1,47 @@
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<div th:replace="fragments/commonui :: menu"></div>
+	<div class="container">
+		<div class="card">
+			<div class="card-header text-center text-dark">
+				<h2>Slot Request Data</h2>
+			</div>
+			<div class="card-body">
+				<table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th> </th>
+							<th>PATIENT</th>
+							<th>DATE</th>
+							<th>DOCTOR</th>
+							<th>STATUS</th>
+							<th>OPERATION</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ob,i:${slotReqData}">
+							<td>[[${i.count}]]</td>
+							<td>[[${ob.patient.firstName+' '+ob.patient.lastName}]]</td>
+							<td>[[${ob.appointment.date}]]</td>
+							<td>[[${ob.appointment.doctor.firstName+' '+ob.appointment.doctor.lastName}]]</td>
+							<td>[[${ob.status}]]</td>
+							<td>
+								<th:block th:if="${ob.status=='PENDING'}">
+									<a th:href="@{/slot/accept(id=${ob.id})}" class="btn btn-success">Accept<i
+											class="fa fa-pencil-square-o" aria-hidden="true"></i></a>|
+									<a th:href="@{/slot/reject(id=${ob.id})}" class="btn btn-danger">Reject<i
+											class="fa fa-trash-o" aria-hidden="true"></i> </a>
+								</th:block>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

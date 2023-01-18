@@ -1,0 +1,65 @@
+<html xmlns:th ="https://www.thymeleaf.org/"
+           xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+
+   <div th:replace="fragments/commonui :: header"></div>
+  <body>
+   <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header  text-center text-dark">
+          <h2>Specialization Registeration</h2>
+        </div>
+
+        <div class="card-body">
+          <form th:action="@{/spec/save}" method="post" id="specForm">
+            <!--row#1-->
+            <div class="row">
+              <div class="col-2"><label for="specCode">Code</label></div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  name="specCode"
+                  id="specCode"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-4"><span id="specCodeError"></span></div>
+            </div>
+            <!--row#2-->
+            <div class="row">
+              <div class="col-2"><label for="specName">Name</label></div>
+              <div class="col-6">
+                <input
+                  type="text"
+                  name="specName"
+                  id="specName"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-4"><span id="specNameError"></span></div>
+            </div>
+            <!--row#3-->
+            <div class="row">
+              <div class="col-2"><label for="specNote">Note</label></div>
+              <div class="col-6">
+                <textarea
+                  name="specNote"
+                  id="specNote"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-4"><span id="specNoteError"></span></div>
+            </div>
+            <button type="submit" class="btn btn-success btn-spec">Create</button>
+          </form>
+        </div>
+        <div th:if="${message!=null}" class="card-footer bg-white text-info">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+   <script th:src="@{/specJs/spec_validator.js}"></script>
+  </body>
+  
+</html>

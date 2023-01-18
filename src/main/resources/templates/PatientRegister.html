@@ -1,0 +1,311 @@
+<html xmlns:th="https://www.thymeleaf.org/"
+            xmlns:sec="https://www.thymeleaf.org/extras/spring-security5"
+>
+   <div th:replace="fragments/commonui :: header"></div>
+  <body>
+   <div th:replace="fragments/commonui :: menu"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-header  text-center text-dark">
+          <h2>Pateint Register</h2>
+        </div>
+        <div class="card-body">
+          <form th:action="@{/patient/save}" method="post" id="pateintForm" th:object="${patient}">
+            <!--#1row-->
+            <div class="row">
+              <div class="col-2"><label for="firstName">First Name</label></div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  name="firstName"
+                  id="firstName"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="firstNameError"></span></div>
+            </div>
+            <!--#2row-->
+            <div class="row">
+              <div class="col-2"><label for="lastName">Last Name</label></div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  name="lastName"
+                  id="lastName"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="lastNameError"></span></div>
+            </div>
+            <!--#3row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="gender">Gender</label>
+              </div>
+              <div class="col-4">
+                <!--InnerRow#1-->
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender1"
+                      value="male"
+                    />Male
+                  </div>
+                </div>
+                <!--InnerRow#2-->
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender2"
+                      value="female"
+                    />Female
+                  </div>
+                </div>
+                <!--InnerRow#3-->
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      type="radio"
+                      name="gender"
+                      id="gender3"
+                      value="other"
+                    />Other
+                  </div>
+                </div>
+              </div>
+              <div class="col-6"><span id="genderError"></span></div>
+            </div>
+            <!--#4row-->
+            <div class="row">
+              <div class="col-2"><label for="mobile">Phone</label></div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  name="mobile"
+                  id="mobile"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="mobileError"></span></div>
+            </div>
+            <!--#5row-->
+            <div class="row">
+              <div class="col-2"><label for="mail">Email ID</label></div>
+              <div class="col-4">
+                <input
+                  type="email"
+                  name="mail"
+                  id="mail"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="mailError"></span></div>
+            </div>
+            <!--#6row-->
+            <div class="row">
+              <div class="col-2"><label for="dob">Date Of Birth</label></div>
+              <div class="col-4">
+                <input
+                  type="date"
+                  name="dateOfBirth"
+                  id="dateOfBirth"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="dateOfBirthError"></span></div>
+            </div>
+            <!--#7row-->
+            <div class="row">
+              <div class="col-2"><label>Marital Status</label></div>
+              <div class="col-8">
+                <!--InnerRow#1-->
+                <div class="row">
+                  <div class="col-2">
+                    <input
+                      type="radio"
+                      name="meritalStatus"
+                      id="maritalStatus1"
+                      value="married"
+                    />Married
+                  </div>
+                  <div class="col-2">
+                    <input
+                      type="radio"
+                      name="meritalStatus"
+                      id="mritalStatus2"
+                      value="unmarried"
+                    />Unmarried
+                  </div>
+                </div>
+                <!--InnerRow#2-->
+                <div class="row">
+                  <div class="col-2">
+                    <input
+                      type="radio"
+                      name="meritalStatus"
+                      id="mritalStatus3"
+                      value="liveIn"
+                    />LiveIn
+                  </div>
+                  <div class="col-2">
+                    <input
+                      type="radio"
+                      name="meritalStatus"
+                      id="mritalStatus4"
+                      value="divorced"
+                    />Divorced
+                  </div>
+                </div>
+              </div>
+              <div class="col-2"><span id="meritalStatusError"></span></div>
+            </div>
+            <!--#8row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="presentAddrs">Present Address</label>
+              </div>
+              <div class="col-4">
+                <textarea
+                  name="presentAddrs"
+                  id="presentAddrs"
+                  class="form-control"
+                >
+                </textarea>
+              </div>
+              <div class="col-6"><span id="presentAddrsError"></span></div>
+            </div>
+            <!--#9row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="commAddrs">Communication Address</label>
+              </div>
+              <div class="col-4">
+                <textarea name="commAddrs" id="commAddrs" class="form-control">
+                </textarea>
+              </div>
+              <div class="col-6"><span id="commAddrsError"></span></div>
+            </div>
+           <!--#10row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="mediHistory">Past Medical History</label>
+              </div>
+              <div class="col-4">
+                <!--InnerRow#1-->
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory1"
+                      value="anemia"
+                    />Anemia
+                  </div>
+                  <div class="col-4">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory2"
+                      value="asthma"
+                    />Asthma
+                  </div>
+                  <div class="col-4">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory5"
+                      value="uicer"
+                    />UIcer
+                  </div>
+                </div>
+                <!--InnerRow#2-->
+                <div class="row">
+                  <div class="col-4">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory3"
+                      value="diabetes"
+                    />Diabetes
+                  </div>
+                  <div class="col-3">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory4"
+                      value="cancer"
+                    />Cancer
+                  </div>
+                  <div class="col-5">
+                    <input
+                      type="checkbox"
+                      name="mediHistory"
+                      id="mediHistory6"
+                      value="chickenpox"
+                    />Chickenpox
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <span id="mediHistoryError"></span>
+              </div>
+            </div>
+            <!--11#row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="ifOther"
+                  >IF Other History
+                  <input
+                    type="checkbox"
+                    name="mediHistory"
+                    id="mediHistory7"
+                    value="ifOther"
+                  />
+                </label>
+              </div>
+              <div class="col-4">
+                <input
+                  type="text"
+                  name="ifOther"
+                  id="ifOther"
+                  class="form-control"
+                />
+              </div>
+              <div class="col-6"><span id="mediHistoryError"></span></div>
+            </div>
+            <!--#12row-->
+            <div class="row">
+              <div class="col-2">
+                <label for="otherDetail">Other Details</label>
+              </div>
+              <div class="col-4">
+                <textarea
+                  name="otherDetails"
+                  id="otherDetails"
+                  class="form-control"
+                >
+                </textarea>
+              </div>
+              <div class="col-6"><span id="otherDetailsError"></span></div>
+            </div>
+           <button type="submit" class="btn btn-success btn-pat">
+              <i class="fa fa-sign-in" aria-hidden="true"></i>Register
+            </button>
+            <button type="reset" class="btn btn-danger btn-pat">
+              <i class="fa fa-ban" aria-hidden="true"></i>Cancel
+            </button>
+          </form>
+        </div>
+        <div th:if="${message!=null}" class="card-footer bg-info">
+          <span th:text="${message}"></span>
+        </div>
+      </div>
+    </div>
+    <!--Footer-->
+     <div th:replace="fragments/commonui :: footer"></div>
+  </body>
+</html>

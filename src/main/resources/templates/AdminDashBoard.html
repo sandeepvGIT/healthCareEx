@@ -1,0 +1,47 @@
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<!--Nav-->
+	<div th:replace="fragments/commonui :: menu"></div>
+	<!--Nav End-->
+	<div class="card-body align-center">
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<button type="button" class="btn btn-primary">
+					Doctor <span class="badge badge-light">[[${doctors}]]</span>
+				</button>
+			</div>
+			<div class="col-4">
+				<button type="button" class="btn btn-primary">
+					Patient <span class="badge badge-light">[[${patients}]]</span>
+				</button>
+			</div>
+		</div>
+		<br />
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<button type="button" class="btn btn-info btn-lg">
+					Appointment <span class="badge badge-light">[[${appointments}]]</span>
+				</button>
+			</div>
+			<div class="col-4">
+				<button type="button" class="btn btn-dark btn-lg">
+					Specialization <span class="badge badge-light">[[${specialization}]]</span>
+				</button>
+			</div>
+
+		</div>
+		<hr/>
+		<div class="row justify-content-center">
+			<div class="col-4">
+				<img th:src="@{/adminA.jpg}" />
+			</div>
+			<div class="col-4">
+				<img th:src="@{/adminB.jpg}" />
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

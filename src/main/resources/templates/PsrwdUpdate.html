@@ -1,0 +1,106 @@
+<html xmlns:th="https://www.thymeleaf.org/" xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
+
+<div th:replace="fragments/commonui :: header"></div>
+
+<body>
+	<div th:replace="fragments/commonui :: menu"></div>
+
+	<div class="container">
+		<div class="card">
+			<div class="card-header  text-center text-dark">
+				<h2>Update Password</h2>
+			</div>
+
+			<div class="card-body">
+				<form th:action="@{/user/pwdUpdate}" method="post" id="passwordForm">
+					<!--row#1-->
+					<div class="row">
+						<div class="col-2"><label for="password01">Password</label></div>
+						<div class="col-4">
+							<input type="text" name="password" id="password01" class="form-control" required>
+						</div>
+						<div class="col-6"><span id="password01Error"></span></div>
+					</div>
+					<!--row#2-->
+					<div class="row">
+						<div class="col-2"><label for="password02">Re-Password</label></div>
+						<div class="col-4">
+							<input type="text" name="rePassword" id="password02" class="form-control  " required />
+						</div>
+						<div class="col-6"><span id="password02Error"></span></div>
+					</div>
+					<button type="submit" class="btn btn-success">
+						<i class="fa fa-plus" aria-hidden="true"></i>Update
+					</button>
+				</form>
+			</div>
+			<div th:if="${message!=null}" class="card-footer bg-info">
+				<span th:text="${message}"></span>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			
+			$("#password01Error").hide();
+			var password01Error = false;
+			$("#password02Error").hide();
+			var password02Error = false;
+			//validate password
+			function validate_password01(){
+				 var val = $("#password01").val();
+                 var exp = /^[A-Za-z0-9\.\-\,\ _]{6,20}$/;
+                 if(val==''){
+	                 $("#password01Error").show();
+	                 $("#password01Error").html("<b>Password</b> can not be empty ");
+	                 $("#password01Error").css('color','red');
+	                 password01Error = false;
+                  }else if(!exp.test(val)){
+	                 $("#password01Error").show();
+	                 $("#password01Error").html("<b>Password</b> must have 6 to 20 latter ");
+	                 $("#password01Error").css('color','red');
+	                 password01Error = false;
+                }else{
+	                 $("#password01Error").hide();
+	                 password01Error = true;
+                }//if
+                
+                return password01Error;
+                
+			}//function validate_password01()
+			
+			function validate_password02() {
+				var pwd01 = $("#password01").val();
+				var pwd02 = $("#password02").val();
+				if (pwd01 !== pwd02) {
+					$("#password02Error").show();
+					$("#password02Error").html("password not matching");
+				}
+				else {
+					$("#password02Error").hide();
+					password02Error = true;
+				}//if
+				return password02Error;
+			}//validate_password()
+			
+			$("#password01").keyup(function () {
+				validate_password01()
+			})
+			$("#password02").keyup(function () {
+				validate_password02()
+			})
+			$("passwordForm").submit(function(){
+				validate_password01()
+				validate_password02()
+				if(password01Error && password02Error)
+				      return true;
+				 else
+				      return false;     
+			});
+		})
+	</script>
+	<!--Footer-->
+	<div th:replace="fragments/commonui :: footer"></div>
+</body>
+
+</html>
